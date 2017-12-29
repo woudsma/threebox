@@ -1,4 +1,4 @@
-var THREE = require("../three64.js");
+var THREE = require("three");
 var Threebox = require('../Threebox.js');
 var utils = require("../Utils/Utils.js");
 var ThreeboxConstants = require("../constants.js");
@@ -42,7 +42,7 @@ CameraSync.prototype = {
         const farZ = furthestDistance * 1.01;
 
         this.camera.projectionMatrix = utils.makePerspectiveMatrix(fov, this.map.transform.width / this.map.transform.height, 1, farZ);
-        
+
 
         var cameraWorldMatrix = new THREE.Matrix4();
         var cameraTranslateZ = new THREE.Matrix4().makeTranslation(0,0,cameraToCenterDistance);
@@ -54,12 +54,12 @@ CameraSync.prototype = {
         cameraWorldMatrix
             .premultiply(cameraTranslateZ)
             .premultiply(cameraRotateX)
-            .premultiply(cameraRotateZ);            
+            .premultiply(cameraRotateZ);
 
         this.camera.matrixWorld.copy(cameraWorldMatrix);
 
 
-        var zoomPow =  this.map.transform.scale; 
+        var zoomPow =  this.map.transform.scale;
         // Handle scaling and translation of objects in the map in the world's matrix transform, not the camera
         var scale = new THREE.Matrix4;
         var translateCenter = new THREE.Matrix4;

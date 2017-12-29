@@ -1,4 +1,4 @@
-var THREE = require("./three64.js");    // Modified version to use 64-bit double precision floats for matrix math
+var THREE = require("three");    // Modified version to use 64-bit double precision floats for matrix math
 var ThreeboxConstants = require("./constants.js");
 var CameraSync = require("./Camera/CameraSync.js");
 var utils = require("./Utils/Utils.js");
@@ -6,8 +6,8 @@ var utils = require("./Utils/Utils.js");
 var SymbolLayer3D = require("./Layers/SymbolLayer3D.js");
 
 function Threebox(map){
+    if (!THREE) throw 'no threejs found. Run `npm i three --save`'
     this.map = map;
-
     // Set up a THREE.js scene
     this.renderer = new THREE.WebGLRenderer( { alpha: true, antialias:true} );
     this.renderer.setSize( this.map.transform.width, this.map.transform.height );
@@ -60,7 +60,7 @@ Threebox.prototype = {
             -ThreeboxConstants.MERCATOR_A * coords[0] * ThreeboxConstants.DEG2RAD * ThreeboxConstants.PROJECTION_WORLD_SIZE,
             -ThreeboxConstants.MERCATOR_A * Math.log(Math.tan((Math.PI*0.25) + (0.5 * coords[1] * ThreeboxConstants.DEG2RAD))) * ThreeboxConstants.PROJECTION_WORLD_SIZE
         ];
-     
+
         var pixelsPerMeter = this.projectedUnitsPerMeter(coords[1]);
 
         //z dimension
@@ -117,9 +117,9 @@ Threebox.prototype = {
         this._flipMaterialSides(obj);
         this.world.add(geoGroup);
         this.moveToCoordinate(obj, lnglat, options);
-        
+
         // Bestow this mesh with animation superpowers and keeps track of its movements in the global animation queue
-        //this.animationManager.enroll(obj); 
+        //this.animationManager.enroll(obj);
 
         return obj;
     },
@@ -209,7 +209,7 @@ Threebox.prototype = {
         // //scene.add( lights[ 0 ] );
         // this.scene.add( lights[ 1 ] );
         // this.scene.add( lights[ 2 ] );
-        
+
     }
 }
 
