@@ -5,8 +5,6 @@ const ValueGenerator = require("../Utils/ValueGenerator.js");
 const OBJLoader = require("../Loaders/OBJLoader.js");
 const MTLLoader = require("../Loaders/MTLLoader.js");
 
-console.log(THREE);
-
 function SymbolLayer3D(parent, options) {
     if(options === undefined) return console.error("Invalid options provided to SymbolLayer3D");
     // TODO: Better error handling here
